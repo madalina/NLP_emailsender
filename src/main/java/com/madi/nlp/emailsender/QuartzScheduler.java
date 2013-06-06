@@ -29,7 +29,7 @@ public class QuartzScheduler {
 
             Trigger trigger = newTrigger()
                     .withIdentity("trigger_emails", "group_emails").startNow()
-                    .withSchedule(dailyAtHourAndMinute(06, 00)).build();
+                    .withSchedule(dailyAtHourAndMinute(20, 55)).build();
 
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
