@@ -1,4 +1,4 @@
-package com.madi.learningplatform.emailsender;
+package com.madi.nlp.emailsender;
 
 import static org.quartz.CronScheduleBuilder.dailyAtHourAndMinute;
 import static org.quartz.JobBuilder.newJob;

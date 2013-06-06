@@ -4,13 +4,8 @@
 	<properties>
 		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
-	<parent>
-		<groupId>com.madi.learningplatform</groupId>
-		<artifactId>learningplatform-parent</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>emailsender</artifactId>
-	<groupId>com.madi.learningplatform.emailsender</groupId>
+	<artifactId>nlp-emailsender</artifactId>
+	<groupId>com.madi</groupId>
       
     <build>
         <plugins>
@@ -22,7 +17,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.madi.learningplatform.emailsender.QuartzScheduler</mainClass>
+                            <mainClass>com.madi.nlp.emailsender.QuartzScheduler</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -35,7 +30,7 @@
 	        <configuration>
 	          <programs>
 	            <program>
-	              <mainClass>com.madi.learningplatform.emailsender.QuartzScheduler</mainClass>
+	              <mainClass>com.madi.nlp.emailsender.QuartzScheduler</mainClass>
 	              <name>EmailScheduler</name>
 	            </program>
 	          </programs>
@@ -76,6 +71,11 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+        </dependency>
 
 	</dependencies>
 	<version>1.0.1-SNAPSHOT</version>

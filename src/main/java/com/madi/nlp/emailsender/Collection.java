@@ -1,4 +1,4 @@
-package com.madi.learningplatform.emailsender;
+package com.madi.nlp.emailsender;
 
 import java.util.HashSet;
 import java.util.Set;
