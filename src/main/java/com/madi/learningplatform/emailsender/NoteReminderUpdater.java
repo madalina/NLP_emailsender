@@ -38,7 +38,7 @@ public class NoteReminderUpdater implements Job {
     }
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        log.info("Preparing to fetch today's batch of reminders...");
+        log.info("Preparing to fetch today's batch of goodies...");
 
         Statement statement = null;
         ResultSet resultSet = null;
