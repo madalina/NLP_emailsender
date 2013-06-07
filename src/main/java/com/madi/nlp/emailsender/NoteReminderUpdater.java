@@ -33,7 +33,7 @@ public class NoteReminderUpdater implements Job {
         try {
             nru.execute(null);
         } catch (JobExecutionException e) {
-            log.error(e.getMessage(), e);
+            System.out.println(e.getMessage());
         }
     }
 
