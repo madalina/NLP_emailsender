@@ -38,7 +38,7 @@ public class NoteReminderUpdater implements Job {
     }
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        log.info("Preparing to fetch today's batch of goodies...");
+        System.out.println("Preparing to fetch today's batch of goodies...");
 
         Statement statement = null;
         ResultSet resultSet = null;
@@ -46,15 +46,17 @@ public class NoteReminderUpdater implements Job {
 
         try {
             statement = DatabaseConnection.getConnection().createStatement();
+            System.out.println("Got connection");
             resultSet = statement
-                    .executeQuery("select * from notes where remindme = true and collection = 1");
+                    .executeQuery("select * from learningplatform.notes where remindme = 1 and collection = 1");
 
-            while (resultSet.next()) {
+            while (resultSet != null && resultSet.next()) {
                 expressions.add(new Note(resultSet.getString("front"),
                         resultSet.getString("back")));
+                System.out.println(resultSet.getString("front"));
             }
         } catch (SQLException e) {
-            log.error(e.getMessage(), e);
+            System.out.println(e.getMessage());
         }
         
         Collections.shuffle(expressions);
@@ -69,16 +71,6 @@ public class NoteReminderUpdater implements Job {
 
         emailContent += "\n\nBest regards,\nLearningplatform";
         sendEmail(emailContent);
-
-        /*
-         * DBCollection table = State.getDatabaseConn().getCollection("notes");
-         * BasicDBObject whereQuery = new BasicDBObject();
-         * whereQuery.put("remindme", true);
-         * 
-         * DBCursor cursor = table.find(whereQuery); while (cursor.hasNext()) {
-         * DBObject row = cursor.next(); expressions.add(new
-         * Note(row.get("front").toString(),row.get("back").toString())); }
-         */
     }
 
     private void sendEmail(String emailContent) {
@@ -110,7 +102,7 @@ public class NoteReminderUpdater implements Job {
 
             Transport.send(message);
 
-            log.info("Email sent successfully");
+            System.out.println("Email sent successfully");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
