@@ -21,22 +21,22 @@ public class QuartzScheduler {
             // and start it off
             scheduler.start();
             
-            System.out.println("Started the quartz scheduler at " + new Date());
+            Logger.getLogger(QuartzScheduler.class).info("Started the quartz scheduler at " + new Date());
             // define the job and tie it to our HelloJob class
             JobDetail job = newJob(NoteReminderUpdater.class).withIdentity(
                     "job1", "group1").build();
 
             Trigger trigger = newTrigger()
                     .withIdentity("trigger_emails", "group_emails").startNow()
-                    .withSchedule(dailyAtHourAndMinute(20, 30)).build();
+                    .withSchedule(dailyAtHourAndMinute(04, 00)).build();
 
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
-            System.out.println("Scheduled the job NoteReminderUpdater at 05:00 every morning");
+            Logger.getLogger(QuartzScheduler.class).info("Scheduled the job NoteReminderUpdater at 05:00 every morning");
             
 
         } catch (SchedulerException se) {
-            System.out.println(se.getMessage());
+            Logger.getLogger(QuartzScheduler.class).error(se.getMessage());
         }
     }
 }

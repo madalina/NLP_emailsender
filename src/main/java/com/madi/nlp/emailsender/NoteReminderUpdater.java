@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -38,7 +39,7 @@ public class NoteReminderUpdater implements Job {
     }
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        System.out.println("Preparing to fetch today's batch of goodies...");
+        log.info("Preparing to fetch today's batch of goodies...");
 
         Statement statement = null;
         ResultSet resultSet = null;
@@ -46,17 +47,15 @@ public class NoteReminderUpdater implements Job {
 
         try {
             statement = DatabaseConnection.getConnection().createStatement();
-            System.out.println("Got connection");
             resultSet = statement
                     .executeQuery("select * from learningplatform.notes where remindme = 1 and collection = 1");
 
             while (resultSet != null && resultSet.next()) {
                 expressions.add(new Note(resultSet.getString("front"),
                         resultSet.getString("back")));
-                System.out.println(resultSet.getString("front"));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
         
         Collections.shuffle(expressions);
@@ -102,7 +101,7 @@ public class NoteReminderUpdater implements Job {
 
             Transport.send(message);
 
-            System.out.println("Email sent successfully");
+            log.info("Email sent successfully at " + new Date());
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
