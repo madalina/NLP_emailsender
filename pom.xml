@@ -4,7 +4,7 @@
 	<properties>
 		<slf4j.version>1.6.1</slf4j.version>
 	</properties>
-	<artifactId>nlp-emailsender</artifactId>
+	<artifactId>nlpemailsender</artifactId>
 	<groupId>com.madi</groupId>
 
 	<build>
