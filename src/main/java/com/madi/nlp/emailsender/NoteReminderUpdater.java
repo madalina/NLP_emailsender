@@ -63,9 +63,11 @@ public class NoteReminderUpdater implements Job {
         String emailContent = "Morning sunshine, here are your Norwegian phrases! :) \n --------------------------------------------------------\n\n";
 
         Iterator<Note> it = expressions.iterator();
-        while (it.hasNext()) {
+        int limit = 5;
+        while (it.hasNext() && limit > 0) {
             Note note = it.next();
             emailContent += (">" + note.getFront() + " ---> " + note.getBack() + "\n\n");
+            limit--;
         }
 
         emailContent += "\n\nBest regards,\nLearningplatform";
@@ -86,14 +88,14 @@ public class NoteReminderUpdater implements Job {
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(
-                                "madi.mutihac@gmail.com", "honolulu23");
+                                "norwegianlearningplatform@gmail.com", "norwegiantop");
                     }
                 });
 
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("learningplatform@gmail.com"));
+            message.setFrom(new InternetAddress("norwegianlearningplatform@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse("madi.mutihac@gmail.com"));
             message.setSubject("Morning cup of phrases --- grab your coffee!");
@@ -104,7 +106,7 @@ public class NoteReminderUpdater implements Job {
             log.info("Email sent successfully at " + new Date());
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage(), e);
         }
 
     }
